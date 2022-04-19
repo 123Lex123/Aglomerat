@@ -24,6 +24,11 @@ def index():
     return render_template("index.html")
 
 
+@app.route('/post')
+def single_post():
+    return render_template("single-post.html")
+
+
 def main():
     db_session.global_init("db/info.sqlite")
     db_sess = db_session.create_session()
