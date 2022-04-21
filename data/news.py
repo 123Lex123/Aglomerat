@@ -13,11 +13,14 @@ class News(SqlAlchemyBase):  # класс по работе с новостям�
                            primary_key=True, autoincrement=True)
     title = sqlalchemy.Column(sqlalchemy.String, nullable=True)  # заголовок новости
     content = sqlalchemy.Column(sqlalchemy.String, nullable=True)  # содержание новости
-    created_date = sqlalchemy.Column(sqlalchemy.DateTime,
-                                     default=datetime.datetime.now)  # дата создания новости
+    created_date = sqlalchemy.Column(sqlalchemy.Integer,
+                                     default=datetime.datetime.now().timestamp)  # дата создания новости
     is_private = sqlalchemy.Column(sqlalchemy.Boolean, default=True)  # показывать ли новость всем
     # или только автору
 
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
     user = orm.relation('User')
+    categories = orm.relation("Category",
+                              secondary="association",
+                              backref="news")

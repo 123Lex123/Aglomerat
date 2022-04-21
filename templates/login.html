@@ -3,7 +3,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Регистрация</title>
+  <title>Войти</title>
 
       <link rel="stylesheet" href="/static/css/style_register_form.css">
 
@@ -17,22 +17,20 @@
   <div class="frame">
     <div class="nav">
       <ul class="links">
-        <li class="signin-active"><a class="btn">Зарегистрироваться</a></li>
+        <li class="signin-active"><a class="btn">Войти</a></li>
       </ul>
     </div>
     <div ng-app ng-init="checked = false">
 				        <form class="form-signin" action="" method="post" name="form">
-          <label for="fullname">Имя</label>
-          <input class="form-styling" type="text" name="fullname" placeholder=""/>
-          <label for="email">Почта</label>
-          <input class="form-styling" type="text" name="email" placeholder=""/>
+          <label for="username">Имя пользователя</label>
+          <input class="form-styling" type="text" name="username" placeholder=""/>
           <label for="password">Пароль</label>
           <input class="form-styling" type="text" name="password" placeholder=""/>
-          <label for="confirmpassword">Подтвердите пароль</label>
-          <input class="form-styling" type="text" name="confirmpassword" placeholder=""/>
-                            <label for="about">О себе</label>
-          <input class="form-styling" type="text" name="about" placeholder=""/>
-                            <a ng-click="checked = !checked" class="btn-signup">Зарегистрироваться</a>
+          <input type="checkbox" id="checkbox"/>
+          <label for="checkbox" ><span class="ui"></span>Запомнить меня</label>
+          <div class="btn-animate">
+            <a class="btn-signin">Войти</a>
+          </div>
 				        </form>
       </div>
   </div>
