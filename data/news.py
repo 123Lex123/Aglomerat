@@ -15,8 +15,6 @@ class News(SqlAlchemyBase):  # класс по работе с новостям�
     content = sqlalchemy.Column(sqlalchemy.String, nullable=True)  # содержание новости
     created_date = sqlalchemy.Column(sqlalchemy.Integer,
                                      default=datetime.datetime.now().timestamp)  # дата создания новости
-    is_private = sqlalchemy.Column(sqlalchemy.Boolean, default=True)  # показывать ли новость всем
-    # или только автору
 
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
