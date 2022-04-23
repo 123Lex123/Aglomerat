@@ -10,6 +10,13 @@ from forms.login import LoginForm
 from flask_login import LoginManager
 import datetime
 
+db_session.global_init('db/info.sqlite')
+db_sess = db_session.create_session()
+
+all_news = db_sess.query(News).all()
+for x in all_news:
+    x.created_date = datetime.date.fromtimestamp(x.created_date)
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
@@ -25,26 +32,21 @@ def load_user(user_id):  # получение вошедшего пользов�
 @app.route('/')
 @app.route('/index')
 def index():
-    db_sess = db_session.create_session()
-    news = db_sess.query(News).all()
-    news = sorted(news, key=lambda x: x.created_date, reverse=True)
-    for x in news:
-        x.created_date = datetime.date.fromtimestamp(x.created_date)
+    news = all_news
 
     return render_template("index.html", news=news)
 
 
 @app.route('/post/<int:id>')
 def single_post(id):
-    db_sess = db_session.create_session()
-    news = db_sess.query(News).all()
+    news = all_news
     rand_news = random.sample(news, 2)
     post = db_sess.query(News).get(id)
 
     author = post.user.name
     title = post.title
     text = post.content
-    created_date = datetime.date.fromtimestamp(post.created_date)
+    created_date = post.created_date
     category = post.categories[0].name
 
     return render_template("single-post.html",
@@ -102,7 +104,6 @@ def faq():
 
 
 def main():
-    db_session.global_init("db/info.sqlite")
     app.run(port=8080, host='127.0.0.1')
 
 
