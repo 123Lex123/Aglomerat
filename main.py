@@ -1,3 +1,5 @@
+import random
+
 from flask import Flask, render_template, redirect
 from data import db_session
 from data.users import User
@@ -6,7 +8,7 @@ from data.category import Category
 from forms.user import RegisterForm
 from forms.login import LoginForm
 from flask_login import LoginManager
-
+import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -23,12 +25,32 @@ def load_user(user_id):  # получение вошедшего пользов�
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template("index.html")
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).all()
+    news = sorted(news, key=lambda x: x.created_date, reverse=True)
+    for x in news:
+        x.created_date = datetime.date.fromtimestamp(x.created_date)
+
+    return render_template("index.html", news=news)
 
 
-@app.route('/post')
-def single_post():
-    return render_template("single-post.html")
+@app.route('/post/<int:id>')
+def single_post(id):
+    db_sess = db_session.create_session()
+    news = db_sess.query(News).all()
+    rand_news = random.sample(news, 2)
+    post = db_sess.query(News).get(id)
+
+    author = post.user.name
+    title = post.title
+    text = post.content
+    created_date = datetime.date.fromtimestamp(post.created_date)
+    category = post.categories[0].name
+
+    return render_template("single-post.html",
+                           author=author, title=title,
+                           text=text, created_date=created_date,
+                           category=category, news=news, rand_news=rand_news)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -74,7 +96,7 @@ def creators():
     return render_template("base.html")
 
 
-@app.route('/faq')
+@app.route('/create_post')
 def faq():
     return render_template("base.html")
 
