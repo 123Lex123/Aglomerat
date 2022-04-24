@@ -14,17 +14,17 @@
                             <div class="single-blog-post style-3">
                                 <!-- Post Thumb -->
                                 <div class="post-thumb">
-                                    <a href="/post/{{ item.id }}"><img src="{{ url_for('static', filename='img/bg-img/7.jpg') }}" alt=""></a>
+                                    <a href="/post/{{ item[0].id }}"><img src="{{ url_for('static', filename='img/bg-img/7.jpg') }}" alt=""></a>
                                 </div>
                                 <!-- Post Data -->
                                 <div class="post-data">
-                                    <a href="#" class="post-catagory">{{ item.categories[0].name }}</a>
-                                    <a href="/post/{{ item.id }}" class="post-title">
-                                        <h6>{{ item.title }}</h6>
+                                    <a href="#" class="post-catagory"> Пока нет categories }}</a> <!-- item[0].categories[0].name -->
+                                    <a href="/post/{{ item[0].id }}" class="post-title">
+                                        <h6>{{ item[0].title }}</h6>
                                     </a>
                                     <div class="post-meta">
-                                        <p class="post-author">Автор: {{ item.user.name }} </p>
-                                        <p class="post-date">{{ item.created_date }}</p>
+                                        <p class="post-author">Автор: {{ item[0].user.name }} </p>
+                                        <p class="post-date">{{ item[1] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -69,16 +69,16 @@
                             <div class="single-blog-post style-4">
                                 <!-- Post Thumb -->
                                 <div class="post-thumb">
-                                    <a href="/post/{{ item.id }}"><img src="{{ url_for('static', filename='img/bg-img/15.jpg') }}" alt=""></a>
+                                    <a href="/post/{{ item[0].id }}"><img src="{{ url_for('static', filename='img/bg-img/15.jpg') }}" alt=""></a>
                                     <span class="serial-number">{{ loop.index }}.</span>
                                 </div>
                                 <!-- Post Data -->
                                 <div class="post-data">
-                                    <a href="/post/{{ item.id }}" class="post-title">
-                                        <h6>{{ item.title }}</h6>
+                                    <a href="/post/{{ item[0].id }}" class="post-title">
+                                        <h6>{{ item[0].title }}</h6>
                                     </a>
                                     <div class="post-meta">
-                                        <p class="post-author">От {{ item.user.name }} </p>
+                                        <p class="post-author">От {{ item[0].user.name }} </p>
                                     </div>
                                 </div>
                             </div>

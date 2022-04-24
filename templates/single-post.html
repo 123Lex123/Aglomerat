@@ -48,13 +48,13 @@
                                         </div>
                                         <!-- Post Data -->
                                         <div class="post-data">
-                                            <a href="#" class="post-catagory">{{ item.categories[0].name }}</a>
+                                            <!-- <a href="#" class="post-catagory">Пока нет категорий</a> -->
                                             <a href="/post/{{ item.id }}" class="post-title">
                                                 <h6>{{ item.title }}</h6>
                                             </a>
                                             <div class="post-meta">
                                                 <p class="post-author">Автор: {{ item.user.name }}</p>
-                                                <p class="post-date">{{ item.created_date }}</p>
+                                                <!-- <p class="post-date">{{ item.created_date }}</p> -->
                                             </div>
                                         </div>
                                     </div>
@@ -120,4 +120,3 @@
     <script src="js/active.js"></script>
 </body>
 {% endblock %}
-</html>

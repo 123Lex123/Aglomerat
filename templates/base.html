@@ -43,7 +43,9 @@
                                 <ul>
                                     <li><a href="/contact">Контакты</a></li>
                                     <li><a href="/creators">О создателях</a></li>
-                                    <li><a href="/add_post">Добавить новость</a></li>
+                                    {% if current_user.is_authenticated %}
+                                        <li><a href="/add_post">Добавить новость</a></li>
+                                    {% endif %}
                                     <li></li>
                                     <li></li>
                                     <li></li>
@@ -51,21 +53,26 @@
                                 </ul>
 
                                 <!-- Registration and Login Button -->
-
-                                <div class="add-post-button">
-                                    <a href="/login" class="btn login-btn">Вход</a>
-                                </div>
-
-                                <ul>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-
-                                <div class="add-post-button">
-                                    <a href="/register" class="btn register-btn">Регистрация</a>
-                                </div>
+                                {% if current_user.is_authenticated %}
+                                    <div class="add-post-button">
+                                        <a class="btn login-btn" href="/logout">{{ current_user.name }}</a>
+                                    </div>
+                                {% else %}
+                                    <p>
+                                        <div class="add-post-button">
+                                            <a href="/login" class="btn login-btn">Вход</a>
+                                        </div>
+                                        <ul>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                        </ul>
+                                        <div class="add-post-button">
+                                            <a href="/register" class="btn register-btn">Регистрация</a>
+                                        </div>
+                                    </p>
+                                {% endif %}
 
                             </div>
                             <!-- Nav End -->
