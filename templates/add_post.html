@@ -22,6 +22,15 @@
             </p>
         {% endfor %}
     </p>
+    <p>
+        {{ form.select_category.label }}<br>
+        <select class="form-select form-select-lg mb-3">
+            <option selected>Open this select menu</option>
+              {% for o in category %}
+                <option value="{{ o.id }}">{{ o.name }}</option>
+              {% endfor %}
+        </select>
+    </p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
 </form>

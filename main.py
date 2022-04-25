@@ -60,18 +60,28 @@ def single_post(id):
 @login_required
 def add_post():
     form = NewsForm()
+    category = []
+    for id in range(10):
+        category.append(db_sess.query(Category).get(id + 1))
     if form.validate_on_submit():
         news = News()
         news.title = form.title.data
         news.content = form.content.data
+        print(form.select_category)
+        #print(form.select_category.data, '!!!!!!!!!!!!!!!!!!!!!')
+        #print(form.select_category.choices, '+++++++++++++++++')
+        #print(dict(form.select_category.choices).get(form.select_category.data), '----1234567890-')
+        #news.categories.append(form.select_category.data)
+
         current_user.news.append(news)
         db_sess.merge(current_user)
         db_sess.commit()
+
         all_news = db_sess.query(News).all()
         list_date.append(
             [all_news[-1], str(datetime.date.fromtimestamp(all_news[-1].created_date))])
         return redirect('/')
-    return render_template("add_post.html", title='Добавление новости', form=form)
+    return render_template("add_post.html", title='Добавление новости', form=form, category=category)
 
 
 @app.route('/login', methods=['GET', 'POST'])
