@@ -1,11 +1,11 @@
 import datetime
 import sqlalchemy
 from sqlalchemy import orm
-
+from sqlalchemy_serializer import SerializerMixin
 from .db_session import SqlAlchemyBase
 
 
-class News(SqlAlchemyBase):  # класс по работе с новостями
+class News(SqlAlchemyBase, SerializerMixin):  # класс по работе с новостями
     # для их обработки и хранения
     __tablename__ = 'news'
 

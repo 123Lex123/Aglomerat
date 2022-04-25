@@ -4,9 +4,10 @@ from .db_session import SqlAlchemyBase
 from sqlalchemy import orm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from sqlalchemy_serializer import SerializerMixin
 
 
-class User(SqlAlchemyBase, UserMixin):  # модель пользователя, которая
+class User(SqlAlchemyBase, UserMixin, SerializerMixin):  # модель пользователя, которая
     # содержит информацию о пользователях веб-приложения
     __tablename__ = 'users'
 

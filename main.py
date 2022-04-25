@@ -1,6 +1,6 @@
 import random
-
-from flask import Flask, render_template, redirect
+from data import news_api
+from flask import Flask, render_template, redirect, make_response, jsonify
 from data import db_session
 from data.users import User
 from data.news import News
@@ -96,7 +96,7 @@ def logout():
 
 
 @app.route('/register', methods=['GET', 'POST'])
-def reqister():
+def register():
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
@@ -130,7 +130,13 @@ def creators():
     return render_template("base.html")
 
 
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
+
 def main():
+    app.register_blueprint(news_api.blueprint)
     app.run(port=8080, host='127.0.0.1')
 
 
