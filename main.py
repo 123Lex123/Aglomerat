@@ -1,5 +1,5 @@
 import random
-from data import news_api
+from data import news_api, users_api
 from flask import Flask, render_template, redirect, make_response, jsonify
 from data import db_session
 from data.users import User
@@ -136,7 +136,8 @@ def not_found(error):
 
 
 def main():
-    app.register_blueprint(news_api.blueprint)
+    app.register_blueprint(news_api.blueprint, name='news_api')
+    app.register_blueprint(users_api.blueprint, name='users_api')
     app.run(port=8080, host='127.0.0.1')
 
 
