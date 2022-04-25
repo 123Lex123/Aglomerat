@@ -12,8 +12,9 @@ category = []
 for id in range(10):
     category.append(db_sess.query(Category).get(id + 1))
 
+
 class NewsForm(FlaskForm):
     title = StringField('Заголовок', validators=[DataRequired()])
     content = TextAreaField("Содержание")
-    select_category = SelectField('Категория', choices=category)
+    select_category = SelectField('Категория', choices=category).name
     submit = SubmitField('Применить')

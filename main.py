@@ -4,7 +4,6 @@ from flask import Flask, render_template, redirect, make_response, jsonify
 from data import db_session
 from data.users import User
 from data.news import News
-from data.category import Category
 from forms.news import NewsForm
 from forms.user import RegisterForm
 from forms.login import LoginForm
@@ -64,11 +63,6 @@ def add_post():
         news = News()
         news.title = form.title.data
         news.content = form.content.data
-        print(form.select_category)
-        #print(form.select_category.data, '!!!!!!!!!!!!!!!!!!!!!')
-        #print(form.select_category.choices, '+++++++++++++++++')
-        #print(dict(form.select_category.choices).get(form.select_category.data), '----1234567890-')
-        #news.categories.append(form.select_category.data)
 
         current_user.news.append(news)
         db_sess.merge(current_user)
