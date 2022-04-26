@@ -135,12 +135,7 @@ def register():
 
 @app.route('/contact')
 def contact():
-    return render_template("base.html")
-
-
-@app.route('/creators')
-def creators():
-    return render_template("base.html")
+    return render_template("contact.html")
 
 
 @app.errorhandler(404)

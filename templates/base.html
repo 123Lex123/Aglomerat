@@ -12,7 +12,7 @@
     <title>Агломерат</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ url_for('static', filename='img/core-img/favicon.ico') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/core-img/house.ico') }}">
 
     <!-- Core Stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -42,7 +42,6 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="/contact">Контакты</a></li>
-                                    <li><a href="/creators">О создателях</a></li>
                                     {% if current_user.is_authenticated %}
                                         <li><a href="/add_post">Добавить новость</a></li>
                                     {% endif %}
