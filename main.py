@@ -4,6 +4,7 @@ from flask import Flask, render_template, redirect, make_response, jsonify
 from data import db_session
 from data.users import User
 from data.news import News
+from data.category import Category
 from forms.news import NewsForm
 from forms.user import RegisterForm
 from forms.login import LoginForm
@@ -13,6 +14,10 @@ import datetime
 
 db_session.global_init('db/info.sqlite')
 db_sess = db_session.create_session()
+
+category = []
+for id in range(8):
+    category.append(db_sess.query(Category).get(id + 1))
 
 all_news = db_sess.query(News).all()
 list_date = []
@@ -30,29 +35,35 @@ def load_user(user_id):  # получение вошедшего пользов�
     return db_sess.query(User).get(user_id)
 
 
-@app.route('/')
+@app.route('/')  # главная страница
 @app.route('/index')
 def index():
     news = list_date
-    return render_template("index.html", news=news)
+    all_category = db_sess.query(Category).all()
+    return render_template("index.html", news=news, all_category=all_category)
 
 
 @app.route('/post/<int:id>')
 def single_post(id):
     news = all_news
-    rand_news = random.sample(news, 2)
+    if len(news) == 1:
+        rand_news = random.sample(news, 1)
+    else:
+        rand_news = random.sample(news, 2)
     post = db_sess.query(News).get(id)
 
     author = post.user.name
     title = post.title
     text = post.content
     created_date = list_date[id - 1][1]
-    category = "?"  # post.categories[0].name
+    elem = post.category_id
+    if elem > 8:
+        elem = 1
 
     return render_template("single-post.html",
                            author=author, title=title,
                            text=text, created_date=created_date,
-                           category=category, news=news, rand_news=rand_news)
+                           category=category[elem - 1], news=news, rand_news=rand_news)
 
 
 @app.route('/add_post', methods=['GET', 'POST'])
@@ -63,6 +74,7 @@ def add_post():
         news = News()
         news.title = form.title.data
         news.content = form.content.data
+        news.category_id = form.set_category.data
 
         current_user.news.append(news)
         db_sess.merge(current_user)
@@ -72,7 +84,6 @@ def add_post():
         list_date.append(
             [all_news[-1], str(datetime.date.fromtimestamp(all_news[-1].created_date))])
         return redirect('/')
-    print(form.errors, form.select_category.choices)
     return render_template("add_post.html", title='Добавление новости', form=form)
 
 

@@ -24,13 +24,13 @@
         {% endfor %}
     </p>
     <p>
-        {{ form.select_category.label }}<br>
-        <select class="form-select form-select-lg mb-3">
-            <option selected>Open this select menu</option>
-              {% for item in form.select_category.choices %}
-                <option value="{{ item.id }}">{{ item.name }}</option>
-              {% endfor %}
-        </select>
+        {{ form.set_category.label }}<br>
+        {{ form.set_category(class="form-control") }}<br>
+        {% for error in form.set_category.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
     </p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}

@@ -18,7 +18,11 @@
                                 </div>
                                 <!-- Post Data -->
                                 <div class="post-data">
-                                    <a href="#" class="post-catagory"> Пока нет categories }}</a> <!-- item[0].categories[0].name -->
+                                    {% if item[0].category_id > 8 %}
+                                        <a href="#" class="post-catagory">{{ all_category[0].name }}</a>
+                                    {% else %}
+                                        <a href="#" class="post-catagory">{{ all_category[item[0].category_id - 1].name }}</a>
+                                    {% endif %}
                                     <a href="/post/{{ item[0].id }}" class="post-title">
                                         <h6>{{ item[0].title }}</h6>
                                     </a>
@@ -89,7 +93,7 @@
 
                         <!-- Add Widget -->
                         <div class="add-widget mb-70">
-                            <a href="#"><img src="{{ url_for('static', filename='img/bg-img/add.png') }}" alt=""></a>
+                            <a href="https://vk.com/club212918059"><img src="{{ url_for('static', filename='img/bg-img/add.png') }}" alt=""></a>
                         </div>
 
 

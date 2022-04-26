@@ -18,7 +18,6 @@ class News(SqlAlchemyBase, SerializerMixin):  # класс по работе с 
 
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
+    category_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("category.id"))
     user = orm.relation('User')
-    categories = orm.relation("Category",
-                              secondary="association",
-                              backref="news")
+    category = orm.relation('Category')
