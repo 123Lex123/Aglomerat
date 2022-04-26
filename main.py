@@ -44,7 +44,7 @@ def index():
 
 
 @app.route('/post/<int:id>')
-def single_post(id):
+def single_post(id):  # конкретный пост с новостью
     news = all_news
     if len(news) == 1:
         rand_news = random.sample(news, 1)
@@ -68,7 +68,7 @@ def single_post(id):
 
 @app.route('/add_post', methods=['GET', 'POST'])
 @login_required
-def add_post():
+def add_post():  # добавление новости пользователем
     form = NewsForm()
     if form.validate_on_submit():
         news = News()
