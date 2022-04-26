@@ -38,22 +38,23 @@ def main():
                 single_post = True
 
             if "error" in response.json().keys():
-                pass
-
-            item = response.json()["news"]
-            pprint.pprint(item)
-            vk.messages.send(user=user[0]['id'], peer_id=user[0]['id'],
-                             message=f'NewsAPI:',
-                             random_id=random.randint(0, 10 ** 9))
-            if single_post:
                 vk.messages.send(user=user[0]['id'], peer_id=user[0]['id'],
-                                 message=f'Заголовок - {item["title"]}\n'
-                                         f'Автор - {item["user"]["name"]}\n'
-                                         f'Дата публикации - '
-                                         f'{datetime.date.fromtimestamp(item["created_date"])}\n'
-                                         f'Содержание:\n'
-                                         f'{item["content"]}',
+                                 message=f'Произошла ошибка запроса. Проверьте введёные данные.',
                                  random_id=random.randint(0, 10 ** 9))
+            else:
+                item = response.json()["news"]
+                vk.messages.send(user=user[0]['id'], peer_id=user[0]['id'],
+                                 message=f'NewsAPI:',
+                                 random_id=random.randint(0, 10 ** 9))
+                if single_post:
+                    vk.messages.send(user=user[0]['id'], peer_id=user[0]['id'],
+                                     message=f'Заголовок - {item["title"]}\n'
+                                             f'Автор - {item["user"]["name"]}\n'
+                                             f'Дата публикации - '
+                                             f'{datetime.date.fromtimestamp(item["created_date"])}\n'
+                                             f'Содержание:\n'
+                                             f'{item["content"]}',
+                                     random_id=random.randint(0, 10 ** 9))
 
         elif event.type == VkBotEventType.MESSAGE_NEW and '!users' in event.obj.message['text']:
             single_user = False
@@ -65,26 +66,31 @@ def main():
                         event.obj.message['text'][event.obj.message['text'].rfind(' ') + 1:]
                 response = requests.get(query)
                 single_user = True
-            item = response.json()["users"]
-            pprint.pprint(item)
-            vk.messages.send(user=user[0]['id'], peer_id=user[0]['id'],
-                             message=f'UsersAPI:',
-                             random_id=random.randint(0, 10 ** 9))
-            if single_user:
+
+            if "error" in response.json().keys():
                 vk.messages.send(user=user[0]['id'], peer_id=user[0]['id'],
-                                 message=f'ID - {item["id"]}\n'
-                                         f'Имя пользователя - {item["name"]}\n'
-                                         f'email - {item["email"]}\n'
-                                         f'Дата регистрации - '
-                                         f'{datetime.date.fromtimestamp(item["created_date"])}\n'
-                                         f'Графа "о себе" - {item["about"]}\n',
+                                 message=f'Произошла ошибка запроса. Проверьте введёные данные.',
                                  random_id=random.randint(0, 10 ** 9))
             else:
+                item = response.json()["users"]
                 vk.messages.send(user=user[0]['id'], peer_id=user[0]['id'],
-                                 message=f'Количество пользователей: {len(item)}\n'
-                                         f'Для информации по конкретному пользователю '
-                                         f'используйте id',
+                                 message=f'UsersAPI:',
                                  random_id=random.randint(0, 10 ** 9))
+                if single_user:
+                    vk.messages.send(user=user[0]['id'], peer_id=user[0]['id'],
+                                     message=f'ID - {item["id"]}\n'
+                                             f'Имя пользователя - {item["name"]}\n'
+                                             f'email - {item["email"]}\n'
+                                             f'Дата регистрации - '
+                                             f'{datetime.date.fromtimestamp(item["created_date"])}\n'
+                                             f'Графа "о себе" - {item["about"]}\n',
+                                     random_id=random.randint(0, 10 ** 9))
+                else:
+                    vk.messages.send(user=user[0]['id'], peer_id=user[0]['id'],
+                                     message=f'Количество пользователей: {len(item)}\n'
+                                             f'Для информации по конкретному пользователю '
+                                             f'используйте id',
+                                     random_id=random.randint(0, 10 ** 9))
 
 
 if __name__ == '__main__':
