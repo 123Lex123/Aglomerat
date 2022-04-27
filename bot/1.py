@@ -55,6 +55,13 @@ def main():
                                              f'Содержание:\n'
                                              f'{item["content"]}',
                                      random_id=random.randint(0, 10 ** 9))
+                else:
+                    vk.messages.send(user=user[0]['id'], peer_id=user[0]['id'],
+                                     message=f'Количество публикаций: {len(item)}\n'
+                                             f'Для информации по конкретной новости '
+                                             f'используйте id',
+                                     random_id=random.randint(0, 10 ** 9))
+
 
         elif event.type == VkBotEventType.MESSAGE_NEW and '!users' in event.obj.message['text']:
             single_user = False
