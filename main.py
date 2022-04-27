@@ -39,8 +39,9 @@ def load_user(user_id):  # получение вошедшего пользов�
 @app.route('/index')
 def index():
     news = list_date
+    pages = len(news)
     all_category = db_sess.query(Category).all()
-    return render_template("index.html", news=news, all_category=all_category)
+    return render_template("index.html", news=news, all_category=all_category, pages=pages)
 
 
 @app.route('/post/<int:id>')
@@ -57,7 +58,7 @@ def single_post(id):  # конкретный пост с новостью
     text = post.content
     created_date = list_date[id - 1][1]
     elem = post.category_id
-    if elem > 8:
+    if elem > 8 or elem < 1:
         elem = 1
 
     return render_template("single-post.html",

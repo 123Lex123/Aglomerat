@@ -2,39 +2,50 @@
 
 {% block content %}
 <div style="margin-left:100px;">
-<h1>Добавление новости</h1>
-<form action="" method="post">
-    {{ form.csrf_token }}
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.title.label }}<br>
-        {{ form.title(class="form-control") }}<br>
-        {% for error in form.title.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.content.label }}<br>
-        {{ form.content(class="form-control") }}<br>
-        {% for error in form.content.errors %}
-            <p content="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.set_category.label }}<br>
-        {{ form.set_category(class="form-control") }}<br>
-        {% for error in form.set_category.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    {{message}}
-</form>
+    <h1>Добавление новости</h1>
+
+    <form action="" method="post">
+        {{ form.csrf_token }}
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(class="form-control") }}<br>
+            {% for error in form.title.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.content.label }}<br>
+            {{ form.content(class="form-control") }}<br>
+            {% for error in form.content.errors %}
+                <p content="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.set_category.label }}<br> <a>Укажите цифру, которая относится к возможной категории вашей будущей новости.</a>
+            <div >
+                <li><a alt="">1 - Другое</a></li>
+                <li><a alt="">2 - Учёба</a></li>
+                <li><a alt="">3 - Спорт</a></li>
+                <li><a alt="">4 - Еда</a></li>
+                <li><a alt="">5 - Здоровье</a></li>
+                <li><a alt="">6 - Работа</a></li>
+                <li><a alt="">7 - Наука</a></li>
+                <li><a alt="">8 - Космос</a></li>
+            </div>
+            {{ form.set_category(class="form-control") }}<br>
+            {% for error in form.set_category.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        {{message}}
+    </form>
 </div>
 {% endblock %}

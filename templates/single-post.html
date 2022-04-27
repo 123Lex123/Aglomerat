@@ -71,7 +71,7 @@
                          <!-- Trending Articles Widget -->
                         <div class="treading-articles-widget mb-70">
                             <h4>Последние новости</h4>
-                            {% for item in news[-3:] %}
+                            {% for item in news[:-4:-1] %}
                             <!-- Single Trending Articles -->
                             <div class="single-blog-post style-4">
                                 <!-- Post Thumb -->
