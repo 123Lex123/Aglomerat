@@ -7,7 +7,7 @@
                 <!-- Blog Posts Area -->
                 <div class="col-12 col-lg-8">
                     <div class="row">
-                        {% for item in news[-6:] %}
+                        {% for item in news[:] %}
 
                         <!-- Single Blog Post -->
                         <div class="col-12 col-lg-6">
@@ -45,10 +45,7 @@
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination">
                                         <li class="page-item"><a class="page-link" href="#">В начало</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">01</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">02</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">03</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">В конец</a></li>
+                                        <li class="page-item"><a class="page-link">{{ pages }}</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -64,7 +61,7 @@
                         <!-- Trending Articles Widget -->
                         <div class="treading-articles-widget mb-70">
                             <h4>Последние новости</h4>
-                            {% for item in news[-3:] %}
+                            {% for item in news[:-4:-1] %}
                             <!-- Single Trending Articles -->
                             <div class="single-blog-post style-4">
                                 <!-- Post Thumb -->
